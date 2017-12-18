@@ -1,0 +1,91 @@
+server:
+  port: 8080
+spring:
+  datasource.read:
+    driverClassName: @read.datasource.driverClassName@
+    url: @read.datasource.url@
+    username: @read.datasource.username@
+    password: @read.datasource.password@
+    initialSize: 2
+    minIdle: 10
+    maxActive: 200
+    maxWait: 5000
+    filters: stat,wall,log4j
+  datasource.write:
+    driverClassName: @write.datasource.driverClassName@
+    url: @write.datasource.url@
+    username: @write.datasource.username@
+    password: @write.datasource.password@
+    initialSize: 2
+    minIdle: 10
+    maxActive: 200
+    maxWait: 5000
+    filters: stat,wall,log4j
+  jackson:
+    date-format: yyyy-MM-dd kk:mm:ss
+    time-zone: GMT+8
+  redis:
+    database: 0
+    host: @redis.host@
+    pool.max-active: 8
+    pool.max-idle: 8
+    pool.min-idle: 0
+    pool.max-wait: -1
+    port: 6379
+    timeout: 0
+    password: @redis.password@
+#  mvc:
+#    static-path-pattern: /**
+logging:
+  level:
+   ROOT: @logging.level@
+amap:
+  key: 86b1b859744809bf2862744096336153 //高德地图key可用于城市定位，经纬度查询
+#wx:
+#  user: @wx.user@
+#  password: @wx.password@
+
+wx:
+  appId: @wx.appId@
+  appSecret: @wx.appSecret@
+  token: @wx.token@
+  encodingAesKey: @wx.encodingAesKey@
+  storeMangerGroupId: @wx.storeMangerGroupId@
+  defaultGroupId: @wx.defaultGroupId@
+  #微信接口地址
+  apiUrl:
+    accessTokenUrl: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=@wx.appId@&secret=@wx.appSecret@
+    allPrivateTemplateUrl: https://api.weixin.qq.com/cgi-bin/template/get_all_private_template?access_token={0}
+    sendTemplateMsgUrl: https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}
+    #用户授权
+    authCodeUrl: https://open.weixin.qq.com/connect/oauth2/authorize?appid=@wx.appId@&redirect_uri={0}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect
+    authAccessTokenUrl: https://api.weixin.qq.com/sns/oauth2/access_token?appid=@wx.appId@&secret=@wx.appSecret@&code={0}&grant_type=authorization_code
+    userInfoUrl: https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang=zh_CN
+    #菜单相关
+    menuCreateUrl: https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}
+    menuCreateConditionalUrl: https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token={0}
+    menuGetUrl: https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}
+    menuDeleteUrl: https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={0}
+    #用户分组
+    groupMemberUpdate: https://api.weixin.qq.com/cgi-bin/groups/members/update?access_token={0}
+    #获取用户列表
+    openIdListUrl: https://api.weixin.qq.com/cgi-bin/user/get?access_token={0}&next_openid={1}
+    batchUserInfoUrl: https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token={0}
+    #带参二维码
+    createQrCode: https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}
+    showQrCode: https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket={0}
+    jsApiTicketUrl: https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type=jsapi
+    #高级群发接口
+    messageMassSendUrl: https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}
+    #汽车卡
+    cardApiTicketUrl: https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type=wx_card
+    carCardCreateUrl: https://api.weixin.qq.com/card/create?access_token={0}
+    carCardUpdateUrl: https://api.weixin.qq.com/card/update?access_token={0}
+    carCardCodeDecryptUrl: https://api.weixin.qq.com/card/code/decrypt?access_token={0}
+    carCardActiveUrl: https://api.weixin.qq.com/card/generalcard/activate?access_token={0}
+    cardUpdateUserUrl: https://api.weixin.qq.com/card/generalcard/updateuser?access_token={0}
+    modifyStockUrl: https://api.weixin.qq.com/card/modifystock?access_token={0}
+
+ 
+ 
+  

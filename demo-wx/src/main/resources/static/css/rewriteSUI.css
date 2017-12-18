@@ -1,0 +1,163 @@
+/*背景色*/
+.page, .page-group {
+    background: #f1f0f5;
+}
+
+/*弹框*/
+.modal-overlay, .popup-overlay, .preloader-indicator-overlay {
+    background: rgba(0,0,0,.3);
+}
+
+.modal-inner {
+    font-size: .9rem;
+    color: #000000;
+    padding: 1.6rem .75rem;
+    background: #ffffff;
+}
+
+.modal-inner:after {
+    background-color: #d9d9d9;
+}
+
+.modal-button {
+    font-size: .9rem;
+    color: #007aff;
+    background: #ffffff;
+}
+
+.modal-button:after {
+    background-color: #d9d9d9;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+    .modal-button:after {
+        -webkit-transform: scaleX(.5);
+        transform: scaleX(.5);
+    }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3){
+    .modal-button:after {
+        -webkit-transform: scaleX(.33);
+        transform: scaleX(.33);
+    }
+}
+
+/*列表样式*/
+.list-block {
+    margin: .75rem 0 1rem 0;
+}
+
+.list-block .item-inner {
+    padding: .55rem .75rem .55rem 0;
+    line-height: 1.1rem;
+}
+
+.list-block .item-link .item-inner {
+    padding-right: 1.7rem;
+}
+
+.list-block .item-title {
+    font-size: .8rem;
+    color: #000000;
+}
+
+.list-block .item-subtitle {
+    font-size: .65rem;
+}
+
+.list-block .item-after {
+    font-size: .8rem;
+    color: #878787;
+    margin-left: .75rem;
+    max-height: none;
+}
+
+.list-block ul:before, .list-block ul:after, .list-block .item-inner:after {
+    background-color: #d9d9d9;
+}
+
+/*标签页样式(tab)*/
+.buttons-tab .button {
+    height: 2.2rem;
+    line-height: 2.2rem;
+    color: #000000;
+}
+
+.buttons-tab .button.active {
+    color: #ec3b32;
+    border-color: #ec3b32;
+}
+
+/*输入框样式*/
+.list-block input:not([type=checkbox]), .list-block input[type=text], .list-block input[type=password], .list-block input[type=email], .list-block input[type=tel], .list-block input[type=url], .list-block input[type=date], .list-block input[type=datetime-local], .list-block input[type=time], .list-block input[type=number], .list-block input[type=search], .list-block select, .list-block textarea {
+    width: 100%;
+    height: auto;
+    font-size: .7rem;
+    color: #878787;
+    text-align: right;
+    padding :0;
+    outline: none;
+    border: none;
+    background: 0 0;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-appearance: none;
+    display: inline-block;
+}
+
+.list-block input::-webkit-input-placeholder {
+    direction: rtl;
+    text-align: right;
+    color: #878787;
+}
+
+.item-textarea {
+    padding: .55rem .75rem .55rem .75rem;
+    min-height: 2.2rem;
+}
+
+.textarea {
+    width: 100%;
+    font-size: .7rem;
+    color: #878787;
+    text-align: left !important;
+    padding: .5rem .75rem !important;
+    border: 1px solid #d9d9d9 !important;
+    border-radius: .2rem !important;
+    margin-top: .375rem !important;
+    outline: none;
+    background: 0 0;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-appearance: none;
+}
+
+/*popup*/
+.popup {
+    background: #f1f0f5;
+}
+
+/*幻灯片*/
+.swiper-container {
+    padding-bottom: 2.05rem;
+}
+
+.swiper-slide {
+    padding: .75rem 1rem 0 1rem;
+}
+
+.swiper-slide img {
+    width: 100%;
+    border-radius: .8rem;
+    -webkit-box-shadow: 0 .15rem 1rem rgba(0,0,0,.2);
+}
+
+.swiper-pagination-bullet {
+    width: .3rem;
+    height: .3rem;
+    background: #c8c8cd;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background: #ec3b32;
+}

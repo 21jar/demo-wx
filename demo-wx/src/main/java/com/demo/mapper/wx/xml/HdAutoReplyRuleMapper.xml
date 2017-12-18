@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.wx.HdAutoReplyRuleMapper">
+    <resultMap id="BaseResultMap" type="com.demo.domain.wx.HdAutoReplyRule">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="reply_word" jdbcType="VARCHAR" property="replyWord"/>
+        <result column="reply_type" jdbcType="VARCHAR" property="replyType"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="article_count" jdbcType="INTEGER" property="articleCount"/>
+        <result column="articles" jdbcType="VARCHAR" property="articles"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+      delete from hd_auto_reply_rule where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.demo.domain.wx.HdAutoReplyRule">
+      insert into hd_auto_reply_rule (id, reply_word, reply_type, 
+        title, description, content, 
+        article_count, articles
+        create_time )
+      values (#{id}, #{replyWord}, #{replyType}, 
+        #{title}, #{description}, #{content}, 
+        #{articleCount}, #{articles}
+        #{createTime}
+      )
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.demo.domain.wx.HdAutoReplyRule">
+      update hd_auto_reply_rule
+      set reply_word = #{replyWord},
+        reply_type = #{replyType},
+        title = #{title},
+        description = #{description},
+        content = #{content},
+        article_count = #{articleCount},
+        articles = #{articles},
+        create_time = #{createTime},
+        update_time = #{updateTime}
+      where id = #{id}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+      select id, reply_word, reply_type, title, description, content, article_count, articles,
+        create_time, update_time
+      from hd_auto_reply_rule
+      where id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+      select id, reply_word, reply_type, title, description, content, article_count, articles,
+        create_time, update_time
+      from hd_auto_reply_rule
+    </select>
+</mapper>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.wx.HdFansMapper">
+
+	<resultMap id="BaseResultMap" type="com.demo.domain.wx.HdFans">
+		<id column="open_id" jdbcType="VARCHAR" property="openId" />
+		<result column="sex" jdbcType="VARCHAR" property="sex" />
+		<result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+		<result column="province" jdbcType="VARCHAR" property="province" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+		<result column="country" jdbcType="VARCHAR" property="country" />
+		<result column="head_url" jdbcType="VARCHAR" property="headUrl" />
+		<result column="state" jdbcType="VARCHAR" property="state" />
+		<result column="subscribe_time" jdbcType="TIMESTAMP" property="subscribeTime" />
+		<result column="unsubscribe_time" jdbcType="TIMESTAMP"
+			property="unsubscribeTime" />
+		<result column="action_info" jdbcType="VARCHAR" property="actionInfo" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		hd_fans where open_id = #{openId}
+	</delete>
+	
+	<delete id="deleteByOpenId" parameterType="java.lang.String">
+		delete from
+		hd_fans_error_record where open_id = #{openId}
+	</delete>
+
+	<insert id="insert" parameterType="com.demo.domain.wx.HdFans">
+		insert into hd_fans (open_id,
+		sex, nick_name,
+		province, city, country, head_url, state,
+		subscribe_time,
+		unsubscribe_time, action_info, create_time
+		)
+		values
+		(#{openId}, #{sex}, #{nickName},
+		#{province}, #{city}, #{country},
+		#{headUrl}, #{state}, #{subscribeTime},
+		#{unsubscribeTime},
+		#{actionInfo}, #{createTime}
+		)
+		on duplicate key update
+		sex = #{sex},
+		nick_name = #{nickName},
+		province = #{province},
+		city = #{city},
+		country
+		= #{country},
+		head_url = #{headUrl},
+		state = #{state},
+		action_info =
+		#{actionInfo},
+		subscribe_time = #{subscribeTime}
+	</insert>
+
+	<insert id="saveOrUpdateOpenUser" parameterType="com.demo.core.weixin.wxobj.OpenUser">
+		INSERT INTO hd_fans
+		(open_id, sex, nick_name,province, city, country,head_url, state,subscribe_time, create_time,update_time)
+		VALUES
+		(#{openId}, #{sex},#{nickName},#{province}, #{city}, #{country},#{headImgUrl},
+		 '1', FROM_UNIXTIME(#{subscribeTime}),	NOW(),NOW())
+		ON DUPLICATE KEY UPDATE
+		sex=#{sex},nick_name=#{nickName},province=#{province},city=#{city},country=#{country},
+		head_url=#{headImgUrl},state='1',subscribe_time=FROM_UNIXTIME(#{subscribeTime}),update_time=NOW()
+	</insert>
+	
+	<insert id="saveUnsubscribeOpenUser" parameterType="com.demo.core.weixin.wxobj.OpenUser">
+		INSERT INTO hd_fans
+		(open_id,state, create_time,update_time)
+		VALUES
+		(#{openId}, '0', NOW(),NOW())
+		ON DUPLICATE KEY UPDATE
+		state='0',create_time=NOW(),update_time=NOW()
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="com.demo.domain.wx.HdFans">
+		update hd_fans
+		set
+		sex = #{sex},
+		nick_name = #{nickName},
+		province = #{province},
+		city =
+		#{city},
+		country = #{country},
+		head_url = #{headUrl},
+		state = #{state},
+		subscribe_time = #{subscribeTime},
+		unsubscribe_time =
+		#{unsubscribeTime},
+		action_info = #{actionInfo},
+		create_time =
+		#{createTime}
+		where open_id = #{openId}
+	</update>
+
+	<update id="updateUnSubscribeUser" parameterType="com.demo.domain.wx.HdFans">
+		update hd_fans
+		set state = #{state},
+		unsubscribe_time = #{unsubscribeTime}
+		where
+		open_id = #{openId}
+	</update>
+
+	<update id="updateUserActionInfo">
+		update hd_fans
+		set action_info = #{param2}
+		where
+		open_id = #{param1}
+	</update>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select open_id, sex, nick_name, province, city, country,
+		head_url, state,
+		subscribe_time,
+		unsubscribe_time, action_info,
+		create_time, update_time
+		from hd_fans
+		where open_id = #{openId}
+	</select>
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select open_id, sex, nick_name,
+		province, city, country, head_url, state,
+		subscribe_time,
+		unsubscribe_time, action_info, create_time, update_time
+		from hd_fans
+	</select>
+
+	<insert id="saveOpenIdList">
+		INSERT IGNORE INTO hd_fans_error_record (open_id)
+		VALUES
+		<foreach collection="openIds" item="openId" index="index"
+			open="" separator="," close="">
+			('${openId}')
+		</foreach>
+	</insert>
+	<!-- 根据openId插入或更新hd_fans表 -->
+	<insert id="saveOpenUserList" parameterType="com.demo.core.weixin.wxobj.OpenUser">
+		INSERT INTO hd_fans (open_id, sex, nick_name,
+		province, city, country,
+		head_url, state, subscribe_time, create_time,update_time)
+		VALUES
+		<foreach collection="openUsers" item="user" index="index"
+			open="" separator="," close="">
+			(#{user.openId}, #{user.sex},
+			#{user.nickName},
+			#{user.province}, #{user.city}, #{user.country},
+			#{user.headImgUrl}, '1', FROM_UNIXTIME(#{user.subscribeTime}),
+			NOW(),NOW())
+		</foreach>
+		ON DUPLICATE KEY UPDATE
+		sex=VALUES(sex),nick_name=VALUES(nick_name),province=VALUES(province),city=VALUES(city),country=VALUES(country),
+		head_url=VALUES(head_url),state='1',subscribe_time=VALUES(subscribe_time),update_time=VALUES(update_time)
+	</insert>
+
+	<insert id="saveErrorOpenIdList">
+		INSERT IGNORE INTO hd_fans_error_record (open_id)
+		VALUES
+		<foreach collection="openIds" item="openId" index="index"
+			open="" separator="," close="">
+			(#{openId})
+		</foreach>
+	</insert>
+
+	<insert id="saveErrorOpenId">
+		INSERT IGNORE INTO hd_fans_error_record (open_id)
+		VALUES (#{openId})
+	</insert>
+
+	<select id="getInCompleteFansSize" resultType="java.lang.Integer">
+		SELECT
+		COUNT(open_id) FROM hd_fans_error_record
+	</select>
+
+	<select id="queryIncompleteInfoOpenUserList" resultType="java.lang.String">
+		SELECT
+		open_id FROM hd_fans_error_record ORDER BY create_time , open_id
+	</select>
+
+	<delete id="deletePullDownOpenId" parameterType="java.lang.Integer">
+		DELETE FROM
+		hd_fans_error_record WHERE open_id IN (
+		SELECT open_id FROM hd_fans
+		)
+	</delete>
+
+	<select id="queryMassSendUser" resultType="java.lang.String">
+		SELECT open_id FROM
+		hd_fans ORDER BY create_time , open_id
+	</select>
+
+	<select id="queryMassSendOpenId" resultType="java.lang.String">
+		SELECT open_id FROM
+		hd_fans_error_record ORDER BY create_time , open_id
+	</select>
+</mapper>

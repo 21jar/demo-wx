@@ -1,0 +1,117 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?pe4mty');
+  src:  url('fonts/icomoon.eot?pe4mty#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?pe4mty') format('truetype'),
+    url('fonts/icomoon.woff?pe4mty') format('woff'),
+    url('fonts/icomoon.svg?pe4mty#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icons-"], [class*=" icons-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icons-video:before {
+  content: "\e91a";
+}
+.icons-activity:before {
+  content: "\e91b";
+}
+.icons-discount-small:before {
+  content: "\e91c";
+}
+.icons-medal:before {
+  content: "\e91d";
+}
+.icons-me:before {
+  content: "\e919";
+}
+.icons-arrow-down:before {
+  content: "\e900";
+}
+.icons-arrow-right:before {
+  content: "\e901";
+}
+.icons-arrow-up:before {
+  content: "\e902";
+}
+.icons-bell:before {
+  content: "\e903";
+}
+.icons-close:before {
+  content: "\e904";
+}
+.icons-crown:before {
+  content: "\e905";
+}
+.icons-discount:before {
+  content: "\e906";
+}
+.icons-expect:before {
+  content: "\e907";
+}
+.icons-location:before {
+  content: "\e908";
+}
+.icons-maintain:before {
+  content: "\e909";
+}
+.icons-map:before {
+  content: "\e90a";
+}
+.icons-menu:before {
+  content: "\e90b";
+}
+.icons-money:before {
+  content: "\e90c";
+}
+.icons-navigation:before {
+  content: "\e90d";
+}
+.icons-phone:before {
+  content: "\e90e";
+}
+.icons-position:before {
+  content: "\e90f";
+}
+.icons-refresh:before {
+  content: "\e910";
+}
+.icons-rescue:before {
+  content: "\e911";
+}
+.icons-search:before {
+  content: "\e912";
+}
+.icons-search-big:before {
+  content: "\e913";
+}
+.icons-search-small:before {
+  content: "\e914";
+}
+.icons-service:before {
+  content: "\e915";
+}
+.icons-store:before {
+  content: "\e916";
+}
+.icons-time:before {
+  content: "\e917";
+}
+.icons-time-small:before {
+  content: "\e918";
+}
+

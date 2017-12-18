@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>表单</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css?v=1.0.0">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css?v=1.0.0">
+	<link rel="stylesheet" href="css/rewriteSUI.css?v=1.0.0">
+	<link rel="stylesheet" href="css/common.css?v=1.0.0">
+	<link rel="stylesheet" href="css/weui.min.css?v=1.0.0">
+  </head>
+
+  <body>
+    <div class="page-group" >
+        <div class="page page-current" >
+	        <div id="content" class="content" style="background-color: #fff;">
+				 <!-- 个人信息 -->
+					<div name="person_info" class="tab">
+						<div class="list-block">
+							<a class="tag">个人信息</a>
+							<ul>
+								<li class="item-content">
+									<div class="item-inner">
+										<div class="item-left must" style="white-space: nowrap;">姓名</div>
+										<input id="name" placeholder="请输入">
+									</div>
+								</li>
+								<li class="item-content">
+									<div class="item-inner">
+										<div class="item-left must" style="white-space: nowrap;">手机号</div>
+										<input id="mobile" placeholder="请输入" type="tel" >
+									</div>
+								</li>
+								</ul>
+						</div>
+						<div class="btn-block">
+							<a id="btn_finish" href="#" class="btn btn-fill btn-primary" onclick="confirm()">完成</a>
+						</div>
+					</div>
+			</div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="//g.alicdn.com/sj/lib/zepto/zepto.min.js?v=1.0.0"></script>
+    <script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js?v=1.0.0"></script>
+    <script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js?v=1.0.0"></script>
+	<script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js?v=1.0.0"></script>
+	<script type="text/javascript" src="js/utils/wxApi.js?v=1.0.0"></script>
+	<script type="text/javascript" src="js/utils/values.js?v=1.0.0"></script>
+	<script type="text/javascript" src="js/utils/core.js?v=1.0.0"></script>
+	<script type="text/javascript" src="js/utils/countdown.js?v=1.0.0"></script>
+	<script type="text/javascript" src="js/utils/getWxOpenId.js?v=1.0.0"></script>
+	<script type="text/javascript">
+		
+		function confirm(){
+			 $.ajax({
+                 url: 'test/saveHdUser.do',
+                 data: {
+                    openId:$.getCookie("open_id"),
+                    name:$("#name").val(),
+                    mobile:$("#mobile").val()
+                     
+                 },
+                 dataType: 'json',
+                 success: function (result) {
+                    alert("保存成功！");
+                 }
+             });
+		}
+		
+		$(function(){
+			//这个是调用微信的jssdk将需要用到的功能进行注入
+			weixin.config({
+				debug: false,
+				jsApiList: ['hideOptionMenu']
+			});
+			weixin.ready(function () {
+				weixin.hideOptionMenu();
+			});
+		}); 
+	</script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.wx.HdMenuConfigMapper">
+    <resultMap id="BaseResultMap" type="com.demo.domain.wx.HdMenuConfig">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="local_menu_id" jdbcType="INTEGER" property="localMenuId"/>
+        <result column="wx_menu_id" jdbcType="VARCHAR" property="wxMenuId"/>
+        <result column="button" jdbcType="VARCHAR" property="button"/>
+        <result column="button_level" jdbcType="INTEGER" property="buttonLevel"/>
+        <result column="has_sub_button" jdbcType="INTEGER" property="hasSubButton"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="key" jdbcType="VARCHAR" property="key"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="media_id" jdbcType="VARCHAR" property="mediaId"/>
+        <result column="order" jdbcType="INTEGER" property="order"/>
+        <result column="matchrule_group" jdbcType="VARCHAR" property="matchRuleGroup"/>
+        <result column="update_to_wx" jdbcType="INTEGER" property="updateToWx"/>
+    </resultMap>
+
+    <sql id="baseField">
+        id, local_menu_id, wx_menu_id, button, button_level, has_sub_button, `name`, `type`, `key`, url, media_id, `order`, matchrule_group, update_to_wx
+    </sql>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+      delete from hd_menu_config where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.demo.domain.wx.HdMenuConfig">
+      insert into hd_menu_config (id, local_menu_id, wx_menu_id, 
+        button, button_level, has_sub_button, `name`,
+        `type`, `key`, url, media_id, 
+        `order`, matchrule_group, update_to_wx)
+      values (#{id}, #{localMenuId}, #{wxMenuId}, 
+        #{button}, #{buttonLevel}, #{hasSubButton}, #{name},
+        #{type}, #{key}, #{url}, #{mediaId}, 
+        #{order}, #{matchRuleGroup}), #{updateToWx})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.demo.domain.wx.HdMenuConfig">
+        update hd_menu_config
+        set local_menu_id = #{localMenuId},
+          wx_menu_id = #{wxMenuId},
+          button = #{button},
+          button_level = #{buttonLevel},
+          has_sub_button = #{hasSubButton},
+          `name` = #{name},
+          `type` = #{type},
+          `key` = #{key},
+          url = #{url},
+          media_id = #{mediaId},
+          `order` = #{order},
+          matchrule_group = #{matchRuleGroup},
+          update_to_wx = #{updateToWx}
+      where id = #{id}
+    </update>
+
+    <update id="updateWxMenuId" parameterType="com.demo.domain.wx.HdMenuConfig">
+        update hd_menu_config set wx_menu_id = #{param2} where local_menu_id = #{param1}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="baseField"/>
+        from hd_menu_config
+        where id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="baseField"/>
+        from hd_menu_config
+        WHERE update_to_wx = 1
+        ORDER BY local_menu_id, `order`
+    </select>
+</mapper>
