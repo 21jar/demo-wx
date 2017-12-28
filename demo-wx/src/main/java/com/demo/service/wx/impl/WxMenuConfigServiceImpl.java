@@ -41,6 +41,7 @@ public class WxMenuConfigServiceImpl implements WxMenuConfigService {
     public List<BaseResult> updateWxMenu() {
         String deleteResult = wxApi.deleteWxMenu();
         List<HdMenuConfig> menusConfigs = hdMenuConfigMapper.selectAll();
+        System.out.println("menusConfigs >"+menusConfigs);
         List<BaseResult> results = new ArrayList<>();
         if (Objects.nonNull(menusConfigs)) {
             //菜单分组
@@ -73,7 +74,7 @@ public class WxMenuConfigServiceImpl implements WxMenuConfigService {
                         ((Menu.ParentButton) buttonsMap.get(mc.getButton())).getSubButton().add(getButton(mc));
                     }
                 });
-
+                
                 Menu wxMenu;
                 String matchRule = configMap.get(key).get(0).getMatchRuleGroup();
                 List<Menu.Button> buttons = new ArrayList<>(buttonsMap.values());
@@ -83,6 +84,7 @@ public class WxMenuConfigServiceImpl implements WxMenuConfigService {
 
                 log.info("generator menu： " + JSON.toJSONString(wxMenu));
                 CreateMenuResult result = wxApi.createMenu(wxMenu);
+                System.out.println("result >"+result);
                 if (Objects.nonNull(result.getMenuId())) {
                     hdMenuConfigMapper.updateWxMenuId(key, result.getMenuId());
                 }

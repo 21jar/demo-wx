@@ -151,12 +151,14 @@ public class WxServiceController {
                 	replyMsg = new TransferCustomerServiceMsg(toUserName,fromUserName).toXml();
                     break;
             }
+            if (validParams.equals("success")){
+            	replyMsg = wxKeywordDealService.genReplyByKeyWord(fromUserName, toUserName, "subscript");
+            }
             if (validParams.isEncrypt()) {
                 replyMsg = new WXBizMsgCrypt(wxProperties.getToken(), wxProperties.getEncodingAesKey(), wxProperties.getAppId())
                         .EncryptMsg(replyMsg, validParams.getTimestamp(), validParams.getNonce());
             }
-           
-            return replyMsg; 
+            return replyMsg;
         }
     }
 
