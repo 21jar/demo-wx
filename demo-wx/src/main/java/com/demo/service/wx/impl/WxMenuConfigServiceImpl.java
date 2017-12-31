@@ -1,10 +1,8 @@
 package com.demo.service.wx.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.demo.core.annotation.TargetDatabase;
 import com.demo.core.weixin.WxApi;
 import com.demo.core.weixin.constant.KeyButtonType;
-import com.demo.core.weixin.wxobj.AccessToken;
 import com.demo.core.weixin.wxobj.ConditionMenu;
 import com.demo.core.weixin.wxobj.Menu;
 import com.demo.core.weixin.wxobj.result.BaseResult;
@@ -41,12 +39,11 @@ public class WxMenuConfigServiceImpl implements WxMenuConfigService {
     public List<BaseResult> updateWxMenu() {
         String deleteResult = wxApi.deleteWxMenu();
         List<HdMenuConfig> menusConfigs = hdMenuConfigMapper.selectAll();
-        System.out.println("menusConfigs >"+menusConfigs);
         List<BaseResult> results = new ArrayList<>();
         if (Objects.nonNull(menusConfigs)) {
             //菜单分组
             Map<Integer, List<HdMenuConfig>> configMap = new HashMap<>();
-            for (HdMenuConfig menuConfig : menusConfigs) {
+            for (HdMenuConfig menuConfig : menusConfigs) {	
                 List<HdMenuConfig> singMenuConfig = configMap.get(menuConfig.getLocalMenuId());
                 if (Objects.isNull(singMenuConfig)) {
                     singMenuConfig = new ArrayList<>();
@@ -56,12 +53,11 @@ public class WxMenuConfigServiceImpl implements WxMenuConfigService {
                     singMenuConfig.add(menuConfig);
                 }
             }
-
+            
             //生成菜单对象,根据menu_local_id排序
             Set<Integer> keys = configMap.keySet();
             for (Integer key : keys) {
                 Map<String, Menu.Button> buttonsMap = new HashMap<>();
-
                 configMap.get(key).forEach(mc -> {
                     //一级菜单且有子菜单
                     if (mc.getButtonLevel() == 1 && mc.getHasSubButton() == 1) {
@@ -74,17 +70,13 @@ public class WxMenuConfigServiceImpl implements WxMenuConfigService {
                         ((Menu.ParentButton) buttonsMap.get(mc.getButton())).getSubButton().add(getButton(mc));
                     }
                 });
-                
                 Menu wxMenu;
                 String matchRule = configMap.get(key).get(0).getMatchRuleGroup();
                 List<Menu.Button> buttons = new ArrayList<>(buttonsMap.values());
                 buttons.sort(Comparator.comparingInt(Menu.Button::getOrder));
 
                 wxMenu = Objects.isNull(matchRule) ? new Menu(buttons) : new ConditionMenu(buttons, new ConditionMenu.MatchRule(matchRule));
-
-                log.info("generator menu： " + JSON.toJSONString(wxMenu));
                 CreateMenuResult result = wxApi.createMenu(wxMenu);
-                System.out.println("result >"+result);
                 if (Objects.nonNull(result.getMenuId())) {
                     hdMenuConfigMapper.updateWxMenuId(key, result.getMenuId());
                 }

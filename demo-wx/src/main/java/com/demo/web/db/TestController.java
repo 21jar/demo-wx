@@ -2,8 +2,6 @@ package com.demo.web.db;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -73,8 +71,7 @@ public class TestController {
 	 */
     @RequestMapping("getQrcode.do")
     public void getQrcode(HttpServletRequest request, HttpServletResponse response, String key) throws IOException {
-    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	log.info("getQrcode date "+sdf.format(new Date()));
+    	System.out.println("getQrcode");
    	 	QrCode qrCode = new QrCode();
         qrCode.setActionName(QrCode.QrCodeType.QR_STR_SCENE);
          
@@ -84,5 +81,6 @@ public class TestController {
         qrCode.setActionInfo(new QrCode.ActionInfo(scene));
         QrCodeResult result = wxApi.createQrCode(qrCode);     
         response.sendRedirect(MessageFormat.format(wxProperties.getApiUrl().getShowQrCode(), result.getTicket()));
+		
 	} 
 }
